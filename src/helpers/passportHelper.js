@@ -21,16 +21,20 @@ passport.use(
     )
 );
 
-var scopes = ['identify', 'email', 'guilds', 'guilds.join'];
+var scopes = ['identify'];
 
 passport.use(new DiscordStrategy({
-    clientID: '1133759376562331668',
-    clientSecret: 'TqpzpS3Hr5pvlMocfYGjyqDWC1GmDPPo',
+    clientID: '1134092384507006987',
+    clientSecret: 'DJzAOEvr67hUpXoMMHtJaz-hFV_WNQiJ',
     callbackURL: 'http://127.0.0.1:5002/auth/discord/callback',
     scope: scopes
-},authUser
-)
-);
+}, (accestoken, refreshtoken, profile, cb) =>{
+    process.nextTick(() => {
+        console.log(profile);
+        return cb(null, profile)
+    })
+}))
+
 
 passport.serializeUser((user, done) => done(null, user));
 

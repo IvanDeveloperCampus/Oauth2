@@ -30,12 +30,18 @@ app.get(
   })
 );
 
-
+app.get("/logoutGoogle", (req, res) => {
+  req.logout({}, (err) => console.log(err));
+  res.redirect("/auth/google");
+});
 
 //Endpoints de autenticacion con discord
 app.get(
   "/auth/discord",
-  passportHelper.authenticate("discord", { scope: ["email"] })
+  passportHelper.authenticate("discord", {
+    failureRedirect: "/auth/discord",
+    successRedirect: "/saludo",
+  })
 );
 
 app.get(
@@ -46,16 +52,17 @@ app.get(
   })
 );
 
-app.get("/logout", (req, res) => {
+app.get("/logoutDiscord", (req, res) => {
   req.logout({}, (err) => console.log(err));
-  res.redirect("/auth/google");
+  res.redirect("/auth/discord");
 });
 
-//Middleware para comprobar si esta autenticado
-const checkAuthentication = (req, res, next) =>
-  req.isAuthenticated() ? next() : res.redirect("/auth/discord");
 
-app.get("/saludo", checkAuthentication, (req, res) =>
+
+//Middleware para comprobar si esta autenticado
+const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect("/auth/google");
+
+app.get("/saludo",  (req, res) =>
   res.send("Bienvenido a tu cuenta")
 );
 
