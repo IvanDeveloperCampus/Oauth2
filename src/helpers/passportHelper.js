@@ -13,9 +13,9 @@ const authUser = (accessToken, refreshToken, profile, done) => {
 passport.use(
     new GoogleStrategy(
         {
-            clientID: '644360234448-sl459v7m4m7002i9totf5gienvq7ssur.apps.googleusercontent.com',
-            clientSecret: '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',
-            callbackURL: 'http://127.0.0.1:5002/auth/google/callback'
+            clientID: '',
+            clientSecret: '',
+            callbackURL: ''
         },
         authUser
     )
@@ -24,9 +24,9 @@ passport.use(
 var scopes = ['identify'];
 
 passport.use(new DiscordStrategy({
-    clientID: '1134092384507006987',
-    clientSecret: 'DJzAOEvr67hUpXoMMHtJaz-hFV_WNQiJ',
-    callbackURL: 'http://127.0.0.1:5002/auth/discord/callback',
+    clientID: '',
+    clientSecret: '',
+    callbackURL: '',
     scope: scopes
 }, (accestoken, refreshtoken, profile, cb) =>{
     process.nextTick(() => {
